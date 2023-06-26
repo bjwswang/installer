@@ -136,8 +136,8 @@ if [[ ${INSTALL_FABRIC_OPERATOR} == "YES" ||  $INSTALL_PG == "YES" || $INSTALL_E
 fi
 
 # step 2. get node name and node ip
-ingressNode="kind-worker"
-kubeProxyNode="kind-worker2"
+ingressNode="kubebb-core-worker"
+kubeProxyNode="kubebb-core-worker2"
 ingressNodeIP=$(kubectl get node ${ingressNode} -owide | grep -v "NAME" | awk '{print $6}')
 kubeProxyNodeIP=$(kubectl get node ${kubeProxyNode} -owide | grep -v "NAME" | awk '{print $6}')
 
