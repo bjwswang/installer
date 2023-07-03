@@ -137,9 +137,9 @@ fi
 
 # step 2. get node name and node ip
 ingressNode="kubebb-core-worker"
-kubeProxyNode="kubebb-core-worker2"
-ingressNodeIP=$(kubectl get node ${ingressNode} -owide | grep -v "NAME" | awk '{print $6}')
-kubeProxyNodeIP=$(kubectl get node ${kubeProxyNode} -owide | grep -v "NAME" | awk '{print $6}')
+kubeProxyNode="kubebb-core-worker"
+ingressNodeIP="172.190.30.163"
+kubeProxyNodeIP="172.190.30.163"
 
 echo "node info:"
 kubectl get node -o wide
@@ -188,7 +188,7 @@ secret=$(kubectl get cm oidc-server -nu4a-system -oyaml | grep secret | head -n1
 
 cat fabric-operator/values.yaml | sed "s/<replaced-ingress-nginx-ip>/${ingressNodeIP}/g" |
 	sed "s/<replaced-iam-server>/https:\/\/oidc-server.u4a-system.svc/g" |
-	sed "s/<replace-with-k8s-oidc-proxy-url>/https:\/\/${kubeProxyNodeIP}/g" |
+	sed "s/<replace-with-k8s-oidc-proxy-url>/https:\/\/k8s.${kubeProxyNodeIP}/g" |
 	sed "s/<replace-with-oidc-server-url>/https:\/\/portal.${ingressNodeIP}.nip.io\/oidc/g" |
 	sed "s/<replace-with-oidc-client-id>/bff-client/g" |
 	sed "s/<replace-with-oidc-client-secret>/${secret}/g" \
